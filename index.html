@@ -2939,6 +2939,172 @@
         .cal-corner {
             display: none !important;
         }
+    }/* ═══════════════ BOTTOM NAV BAR (mobile) ═══════════════ */
+    @media (max-width: 640px) {
+        /* Hide top nav tabs on mobile */
+        .nav-tabs-wrap {
+            display: none !important;
+        }
+
+        .top-nav {
+            justify-content: flex-start;
+            padding: 0 16px;
+            height: 48px;
+        }
+
+        .nav-brand {
+            font-size: 15px;
+        }/* Bottom navigation bar */
+
+        .bottom-nav {
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 0.5px solid var(--bl);
+            z-index: 200;
+            padding: 0;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .bottom-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px 6px;
+            cursor: pointer;
+            color: var(--t3);
+            gap: 3px;
+            transition: color 0.15s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--t1);
+        }
+
+        .bottom-nav-item i {
+            font-size: 20px;
+        }
+
+        .bottom-nav-item span {
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .bottom-nav-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--t1);
+            opacity: 0;
+            margin-top: 2px;
+        }
+
+        .bottom-nav-item.active .bottom-nav-dot {
+            opacity: 1;
+        }/* Add padding to page so content isn't behind bottom nav */
+
+        .page {
+            padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+        }/* ── COMPACT CALENDAR FILTERS ── *//* Hide "Filter:" label on mobile */
+
+        .filters-label {
+            display: none;
+        }/* All filter pills in one row, compact */
+
+        .filters {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px !important;
+            flex-wrap: unset !important;
+            overflow: visible !important;
+            padding-bottom: 0 !important;
+        }
+
+        .fpill {
+            text-align: center;
+            padding: 5px 4px !important;
+            font-size: 10px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }/* Last two pills span together if odd count */
+
+        .fpill:nth-child(5), .fpill:nth-child(6) {
+            grid-column: span 2;
+        }
+    }
+
+    @media (min-width: 641px) {
+        /* Hide bottom nav on desktop */
+        .bottom-nav {
+            display: none;
+        }
+
+        .filters-label {
+            display: inline;
+        }
+    }
+
+    .pill-short {
+        display: none;
+    }
+
+    .pill-long {
+        display: inline;
+    }
+
+    @media (max-width: 640px) {
+        .pill-short {
+            display: inline;
+        }
+
+        .pill-long {
+            display: none;
+        }/* Make filters a 3+3 grid on mobile (6 items) */
+
+        .filters {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 5px !important;
+            overflow: visible !important;
+        }/* Hide the label entirely */
+
+        .filters-label {
+            display: none !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        /* Sub-nav: fit all pills on one line */
+        .sub-nav {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 5px;
+            padding-bottom: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .sub-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .snav {
+            flex-shrink: 0;
+            font-size: 11px !important;
+            padding: 5px 11px !important;
+            white-space: nowrap;
+        }
     }
     </style>
 </head>
@@ -3134,13 +3300,31 @@
                         </div>
                     </div>
                     <div class="filters">
-                        <span style="font-size:12px;color:var(--t2);margin-right:4px;">Filter:</span>
-                        <span class="fpill active" data-f="all" onclick="toggleFilter(this)">All</span>
-                        <span class="fpill" data-f="orient" onclick="toggleFilter(this)">Orientation</span>
-                        <span class="fpill" data-f="c1" onclick="toggleFilter(this)">Cycle 1</span>
-                        <span class="fpill" data-f="c2" onclick="toggleFilter(this)">Cycle 2</span>
-                        <span class="fpill" data-f="c3" onclick="toggleFilter(this)">Cycle 3</span>
-                        <span class="fpill" data-f="events" onclick="toggleFilter(this)">Collective events</span>
+                        <span class="filters-label" style="font-size:12px;color:var(--t2);margin-right:4px;flex-shrink:0;">Filter:</span>
+                        <span class="fpill active" data-f="all" data-short="All" onclick="toggleFilter(this)">
+                            <span class="pill-long">All</span>
+                            <span class="pill-short">All</span>
+                        </span>
+                        <span class="fpill" data-f="orient" data-short="Orient." onclick="toggleFilter(this)">
+                            <span class="pill-long">Orientation</span>
+                            <span class="pill-short">Orient.</span>
+                        </span>
+                        <span class="fpill" data-f="c1" data-short="Cycle 1" onclick="toggleFilter(this)">
+                            <span class="pill-long">Cycle 1</span>
+                            <span class="pill-short">Cycle 1</span>
+                        </span>
+                        <span class="fpill" data-f="c2" data-short="Cycle 2" onclick="toggleFilter(this)">
+                            <span class="pill-long">Cycle 2</span>
+                            <span class="pill-short">Cycle 2</span>
+                        </span>
+                        <span class="fpill" data-f="c3" data-short="Cycle 3" onclick="toggleFilter(this)">
+                            <span class="pill-long">Cycle 3</span>
+                            <span class="pill-short">Cycle 3</span>
+                        </span>
+                        <span class="fpill" data-f="events" data-short="Events" onclick="toggleFilter(this)">
+                            <span class="pill-long">Collective events</span>
+                            <span class="pill-short">Events</span>
+                        </span>
                     </div>
                     <div class="month-section">
                         <div class="month-label">June 2026</div>
@@ -4963,6 +5147,51 @@
         atlasSearch = val.toLowerCase();
         renderAtlas();
     }
+
+    function updateBottomNav(el) {
+        document.querySelectorAll('.bottom-nav-item').forEach(function(item) {
+            item.classList.remove('active');
+        });
+        if (el)
+            el.classList.add('active');
+    }
+
+    // Override showPage to also update bottom nav
+    var _origShowPage = showPage;
+    showPage = function(p) {
+        _origShowPage(p);
+        var bnItem = document.querySelector('.bottom-nav-item[data-page="' + p + '"]');
+        updateBottomNav(bnItem);
+    };
     </script>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-item active" data-page="vision" onclick="showPage('vision');updateBottomNav(this)">
+            <i class="ti ti-eye"></i>
+            <span>Vision</span>
+            <div class="bottom-nav-dot"></div>
+        </div>
+        <div class="bottom-nav-item" data-page="schedule" onclick="showPage('schedule');updateBottomNav(this)">
+            <i class="ti ti-calendar"></i>
+            <span>Schedule</span>
+            <div class="bottom-nav-dot"></div>
+        </div>
+        <div class="bottom-nav-item" data-page="community" onclick="showPage('community');updateBottomNav(this)">
+            <i class="ti ti-users"></i>
+            <span>Community</span>
+            <div class="bottom-nav-dot"></div>
+        </div>
+        <div class="bottom-nav-item" data-page="knowledge" onclick="showPage('knowledge');updateBottomNav(this)">
+            <i class="ti ti-books"></i>
+            <span>KB</span>
+            <div class="bottom-nav-dot"></div>
+        </div>
+        <div class="bottom-nav-item" data-page="atlas" onclick="showPage('atlas');updateBottomNav(this)">
+            <i class="ti ti-flask-2"></i>
+            <span>Atlas</span>
+            <div class="bottom-nav-dot"></div>
+        </div>
+    </nav>
+
 </body>
 </html>
