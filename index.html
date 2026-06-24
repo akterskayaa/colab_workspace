@@ -62,8 +62,21 @@
         color: #534AB7
     }
 
+    .nav-tabs-wrap {
+        flex: 1;
+        min-width: 0;
+        position: relative;
+    }
+
     .nav-tabs {
-        display: flex
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .nav-tab {
@@ -2790,6 +2803,142 @@
             max-width: 100%;
             height: auto;
         }
+    }/* ═══ CALENDAR MOBILE FIX ═══ */
+    @media (max-width: 640px) {
+        /* Hide week labels on mobile - saves a whole column */
+        .cal-cell.wk {
+            display: none;
+        }/* Calendar: 7 equal columns (no week-label column) */
+
+        .cal-grid {
+            grid-template-columns: repeat(7, 1fr) !important;
+        }/* Smaller cells */
+
+        .cal-cell {
+            padding: 3px 2px;
+            min-height: 52px;
+        }
+
+        .cal-cell.header {
+            min-height: 20px;
+            font-size: 9px;
+            padding: 3px 1px;
+        }
+
+        .cal-cell.empty {
+            min-height: 52px;
+        }
+
+        .day-num {
+            font-size: 9px;
+            margin-bottom: 1px;
+        }
+
+        .chip {
+            font-size: 8px;
+            padding: 1px 2px;
+            border-radius: 2px;
+            margin-bottom: 1px;
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }/* Legend wraps nicely */
+
+        .legend {
+            gap: 6px 12px;
+        }
+
+        .leg-item {
+            font-size: 10px;
+        }
+
+        .leg-dot {
+            width: 8px;
+            height: 8px;
+        }/* Filter pills — horizontal scroll */
+
+        .filters {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 6px;
+            padding-bottom: 4px;
+        }
+
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fpill {
+            flex-shrink: 0;
+            font-size: 11px;
+            padding: 4px 10px;
+            white-space: nowrap;
+        }/* Month label */
+
+        .month-label {
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+
+        .month-section {
+            margin-bottom: 1.25rem;
+        }
+    }/* ═══ NAV SCROLL HINT ═══ */
+    .nav-tabs-wrap {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .nav-tabs-wrap::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 32px;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.95));
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    @media (min-width: 641px) {
+        /* Hide hint on desktop where all tabs fit */
+        .nav-tabs-wrap::after {
+            display: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        /* Week label: collapse to 0 width, keep in DOM for JS */
+        .cal-cell.wk {
+            display: none !important;
+            width: 0 !important;
+            padding: 0 !important;
+            min-width: 0 !important;
+        }/* Redefine grid to pure 7 cols - this overrides the wk column */
+
+        .cal-grid {
+            grid-template-columns: repeat(7, 1fr) !important;
+        }/* The first cell (empty corner) also hidden */
+
+        .cal-cell.header:first-child {
+            display: none !important;
+        }/* Sunday column - make sure it's visible */
+
+        .cal-cell:last-child {
+            overflow: visible;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .cal-corner {
+            display: none !important;
+        }
     }
     </style>
 </head>
@@ -2799,26 +2948,28 @@
             Collabora
             <span>torium</span>
         </div>
-        <div class="nav-tabs">
-            <div class="nav-tab active" data-page="vision" onclick="showPage('vision')">
-                <i class="ti ti-eye"></i>
-                Vision
-            </div>
-            <div class="nav-tab" data-page="schedule" onclick="showPage('schedule')">
-                <i class="ti ti-calendar"></i>
-                Schedule
-            </div>
-            <div class="nav-tab" data-page="community" onclick="showPage('community')">
-                <i class="ti ti-users"></i>
-                Community
-            </div>
-            <div class="nav-tab" data-page="knowledge" onclick="showPage('knowledge')">
-                <i class="ti ti-books"></i>
-                Knowledge Base
-            </div>
-            <div class="nav-tab" data-page="atlas" onclick="showPage('atlas')">
-                <i class="ti ti-map-2"></i>
-                Experiment Atlas
+        <div class="nav-tabs-wrap">
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-page="vision" onclick="showPage('vision')">
+                    <i class="ti ti-eye"></i>
+                    Vision
+                </div>
+                <div class="nav-tab" data-page="schedule" onclick="showPage('schedule')">
+                    <i class="ti ti-calendar"></i>
+                    Schedule
+                </div>
+                <div class="nav-tab" data-page="community" onclick="showPage('community')">
+                    <i class="ti ti-users"></i>
+                    Community
+                </div>
+                <div class="nav-tab" data-page="knowledge" onclick="showPage('knowledge')">
+                    <i class="ti ti-books"></i>
+                    Knowledge Base
+                </div>
+                <div class="nav-tab" data-page="atlas" onclick="showPage('atlas')">
+                    <i class="ti ti-map-2"></i>
+                    Experiment Atlas
+                </div>
             </div>
         </div>
     </nav>
@@ -4404,7 +4555,7 @@
         var c = document.getElementById(id);
         c.innerHTML = "";
         var eh = document.createElement("div");
-        eh.className = "cal-cell header";
+        eh.className = "cal-cell header cal-corner";
         c.appendChild(eh);
         DL.forEach(function(d) {
             var h = document.createElement("div");
@@ -4474,7 +4625,8 @@
                 ve.forEach(function(ev) {
                     var chip = document.createElement("span");
                     chip.className = "chip " + (CC[ev.t] || "chip-tbd");
-                    chip.textContent = ev.by ? "By — " + ev.l : ev.l;
+                    var mob = window.innerWidth <= 600;
+                    chip.textContent = ev.by ? (mob ? ev.l : "By — " + ev.l) : ev.l;
                     if (["c1", "c2", "c3"].includes(ev.t)) {
                         chip.style.cursor = "pointer";
                         (function(ct) {
