@@ -1677,6 +1677,13 @@
         };
         return s.toLocaleDateString('en-US', opts) + '–' + e.toLocaleDateString('en-US', opts);
     }
+    function fmtDate(dstr) {
+        var d = new Date(dstr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+        });
+    }
     var STORAGE_KEY = 'collab_portal_progress_v1';
     var kbRead = {};
     function slugify(s) {
@@ -1794,7 +1801,7 @@
         el.innerHTML =
         '<div class="live-icon"><i class="ti ti-calendar-event"></i></div>' +
         '<div><div class="live-title">Right now: ' + w.label + '</div>' +
-        '<div class="live-meta">' + fmtRange(w) + ' — this updates automatically, no need to check in.</div></div>';
+        '<div class="live-meta">' + fmtRange(w) + '</div></div>';
     }
 
     function renderWeek() {
@@ -1832,8 +1839,9 @@
         var wp = progressOf(curWeek.items);
         document.getElementById('ov-week-bar').style.width = wp.pct + '%';
         document.getElementById('ov-week-stat').textContent = wp.done + ' of ' + wp.total + ' tasks done';
-        document.getElementById('ov-week-body').textContent =
-        'Right now: ' + curWeek.label + ' (' + fmtRange(curWeek) + '). Updates on its own — nothing to configure.';
+        document.getElementById('ov-week-body').textContent = calIdx === 0
+        ? 'Finish onboarding before Week 1 kicks off on ' + fmtDate(WEEKS[1].start) + '.'
+        : 'Week 1 is live (' + fmtRange(curWeek) + ') — brainstorm, build, and playtest with your group.';
 
         var hero = document.getElementById('hero-content');
         var next = nextIncompleteItem();
