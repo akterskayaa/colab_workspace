@@ -504,84 +504,9 @@
 
     .check-open:hover {
         color: var(--t1)
-    }/* ---- sub nav (week toggle) ---- */
-    .sub-nav {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 1.1rem;
-        flex-wrap: wrap
-    }
-
-    .snav {
-        font-size: 12.5px;
-        padding: 6px 15px;
-        border-radius: 20px;
-        border: .5px solid var(--bm);
-        background: var(--bg);
-        color: var(--t2);
-        cursor: pointer;
-        user-select: none;
-        transition: all .15s;
-        font-weight: 500
-    }
-
-    .snav:hover {
-        border-color: rgba(0, 0, 0, .26);
-        color: var(--t1)
-    }
-
-    .snav.active {
-        background: var(--t1);
-        color: #fff;
-        border-color: transparent
     }/* ---- calendar banner ---- */
-    .live-strip {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        background: var(--blue-bg);
-        border-radius: var(--rlg);
-        padding: 14px 16px
-    }
 
-    .live-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--blue);
-        font-size: 16px;
-        flex-shrink: 0
-    }
-
-    .live-title {
-        font-size: 13.5px;
-        font-weight: 600;
-        color: #0C447C
-    }
-
-    .live-meta {
-        font-size: 12px;
-        color: #2c689c;
-        margin-top: 2px
-    }
-
-    .live-btn {
-        margin-left: auto;
-        background: var(--blue);
-        color: #fff;
-        border: none;
-        border-radius: 18px;
-        padding: 8px 15px;
-        font-size: 12.5px;
-        font-weight: 600;
-        cursor: pointer;
-        font-family: var(--font);
-        white-space: nowrap
-    }/* ---- accordion (resources) ---- */
+    /* ---- accordion (resources) ---- */
     .kb-section {
         background: #fff;
         border-radius: var(--rlg);
@@ -771,30 +696,38 @@
     .stuck-banner {
         display: flex;
         align-items: center;
-        gap: 10px;
-        background: var(--bg2);
-        border-radius: var(--rmd);
-        padding: 11px 14px;
+        gap: 12px;
+        background: var(--purple-bg);
+        border: 1px solid rgba(83, 74, 183, .25);
+        border-radius: var(--rlg);
+        padding: 13px 16px;
         margin-top: 12px;
-        font-size: 12px;
-        color: var(--t2)
+        font-size: 12.5px;
+        color: #3d3470
     }
 
-    .stuck-banner i {
+    .stuck-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--purple);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 15px;
-        color: var(--t2);
         flex-shrink: 0
     }
 
     .stuck-banner a {
-        color: var(--t1);
-        font-weight: 600;
-        text-decoration: none;
+        color: #3d3470;
+        font-weight: 700;
+        text-decoration: underline;
         cursor: pointer
     }
 
     .stuck-banner a:hover {
-        text-decoration: underline
+        opacity: .75
     }/* ---- connect grid ---- */
     .connect-grid {
         display: grid;
@@ -1183,19 +1116,18 @@
         <!-- ================= WELCOME ================= -->
         <section id="welcome" class="section-block">
             <div class="welcome-card">
-                <div class="welcome-title">Welcome to the Collaboratorium Portal</div>
+                <div class="welcome-title">⭐ Start Here</div>
                 <div class="welcome-text">
-                    This is your home base for the journey ahead. Here you can see what to do next, find upcoming gathering details, access materials, and get support when you need it.
+                    Welcome to the Collaboratorium Portal! This is your home base throughout the journey.
                     <br>
                     <br>
-                    If you are new, begin with Start Here. If you are already participating, check This Week.
+                    If you're new, begin with the Start Here checklist below. Already participating? Jump straight to This Week.
                 </div>
                 <div class="welcome-actions">
-                    <button class="welcome-btn" onclick="openVideo('JKbvcEvY2kI','Orientation')">
-                        <i class="ti ti-player-play" style="margin-right:5px;"></i>
-                        Watch orientation (optional)
-                    </button>
-                    <a class="welcome-btn ghost" href="#startHere" style="text-decoration:none;display:inline-flex;align-items:center;">Start Here →</a>
+                    <a class="welcome-btn" href="#startHere" style="text-decoration:none;display:inline-flex;align-items:center;">
+                        <i class="ti ti-flag" style="margin-right:5px;"></i>
+                        Start Here checklist →
+                    </a>
                     <a class="welcome-btn ghost" href="#thisweek" style="text-decoration:none;display:inline-flex;align-items:center;">This Week →</a>
                 </div>
             </div>
@@ -1243,12 +1175,10 @@
                         <i class="ti ti-calendar-plus" style="margin-right:5px;"></i>
                         Add to Calendar
                     </button>
-                </div>
-                <div class="gathering-foot">
-                    <a onclick="openFullCalendar()">
-                        <i class="ti ti-calendar"></i>
-                         View the full Collaboratorium calendar
-                    </a>
+                    <button class="gbtn secondary" onclick="openFullCalendar()">
+                        <i class="ti ti-calendar" style="margin-right:5px;"></i>
+                        View Full Calendar
+                    </button>
                 </div>
             </div>
         </section>
@@ -1258,16 +1188,14 @@
             <div class="section-head">
                 <div class="section-eyebrow">Right now</div>
                 <div class="section-title">✅ This Week</div>
-                <div class="section-sub">What should I do now? Work through this week's checklist — that's all the navigation you need.</div>
+                <div class="section-sub">What do I need to do this week? Here's your checklist.</div>
             </div>
-            <div class="live-strip" style="margin-bottom:1.1rem;" id="calendar-banner"></div>
-            <div class="sub-nav" id="week-subnav"></div>
             <div class="card">
                 <div class="card-header">
                     <div>
-                        <div class="card-title" id="week-card-title">Week 0</div>
+                        <div class="card-title">This week's checklist</div>
                         <div class="card-sub-row">
-                            <div class="card-sub" id="week-progress-label">0 of 6 complete</div>
+                            <div class="card-sub" id="week-progress-label">0 of 5 complete</div>
                             <div class="saved-note">
                                 <i class="ti ti-device-floppy"></i>
                                  Saved on this device
@@ -1280,12 +1208,15 @@
                 </div>
             </div>
             <div class="stuck-banner">
-                <i class="ti ti-life-buoy"></i>
-                 Not sure what to do next? 
-                <a href="#connect">Ask in Discord</a>
-                 or 
-                <a onclick="toast('Opening support contact…')">contact the team</a>
-                .
+                <div class="stuck-icon">🙋</div>
+                <div>
+                    <b>Stuck?</b>
+                     Not sure what to do next? 
+                    <a href="#connect">Ask in Discord</a>
+                     or 
+                    <a onclick="toast('Opening support contact…')">contact the team</a>
+                    .
+                </div>
             </div>
         </section>
 
@@ -1301,7 +1232,7 @@
                     <div>
                         <div class="card-title">Onboarding checklist</div>
                         <div class="card-sub-row">
-                            <div class="card-sub" id="start-progress-label">0 of 6 complete</div>
+                            <div class="card-sub" id="start-progress-label">0 of 5 complete</div>
                             <div class="saved-note">
                                 <i class="ti ti-device-floppy"></i>
                                  Saved on this device
@@ -1314,12 +1245,15 @@
                 </div>
             </div>
             <div class="stuck-banner">
-                <i class="ti ti-life-buoy"></i>
-                 Not sure what to do next? 
-                <a href="#connect">Ask in Discord</a>
-                 or 
-                <a onclick="toast('Opening support contact…')">contact the team</a>
-                .
+                <div class="stuck-icon">🙋</div>
+                <div>
+                    <b>Stuck?</b>
+                     Not sure what to do next? 
+                    <a href="#connect">Ask in Discord</a>
+                     or 
+                    <a onclick="toast('Opening support contact…')">contact the team</a>
+                    .
+                </div>
             </div>
         </section>
 
@@ -1332,12 +1266,15 @@
             </div>
             <div id="kb-container"></div>
             <div class="stuck-banner">
-                <i class="ti ti-life-buoy"></i>
-                 Can't find something? 
-                <a href="#connect">Ask in Discord</a>
-                 or 
-                <a onclick="toast('Opening support contact…')">contact the team</a>
-                .
+                <div class="stuck-icon">🙋</div>
+                <div>
+                    <b>Stuck?</b>
+                     Can't find something? 
+                    <a href="#connect">Ask in Discord</a>
+                     or 
+                    <a onclick="toast('Opening support contact…')">contact the team</a>
+                    .
+                </div>
             </div>
         </section>
 
@@ -1410,18 +1347,6 @@
             openVideo('JKbvcEvY2kI', 'Orientation')
         },
         openLabel: 'Watch video'
-    },
-    {
-        id: 'agree',
-        icon: 'ti-file-signature',
-        title: 'Sign Participant Agreement',
-        desc: 'Quick e-signature — takes about 2 minutes.',
-        time: '2 min',
-        done: false,
-        action: function() {
-            toast('Opening Participant Agreement…')
-        },
-        openLabel: 'Open document'
     },
     {
         id: 'discord',
@@ -1538,9 +1463,9 @@
 
     var kbData = [
     {
-        title: 'The Journey',
-        count: 'Calendar, participant journey, how each cycle works',
-        icon: 'ti-route',
+        title: 'Participate',
+        count: 'Everything you need to participate successfully',
+        icon: 'ti-checklist',
         color: 'purple',
         items: [
         {
@@ -1553,10 +1478,20 @@
             by: 'Visual walkthrough'
         },
         {
-            t: 'Orientation recording',
-            by: 'Watch the recorded session anytime',
-            kind: 'video',
-            videoId: 'JKbvcEvY2kI'
+            t: 'The 7-day experiment cycle — visual guide',
+            by: 'Diagram + walkthrough'
+        },
+        {
+            t: 'Getting started — audio guide',
+            by: 'Radiant Iris · Audio'
+        },
+        {
+            t: 'Ritual design template',
+            by: 'Google Doc'
+        },
+        {
+            t: 'Reflection & share-out template',
+            by: 'Google Doc'
         },
         {
             t: 'Collective Playtest',
@@ -1600,39 +1535,17 @@
         ]
     },
     {
-        title: 'Creative Support',
-        count: 'Experiment guide, templates, examples',
-        icon: 'ti-bulb',
-        color: 'green',
-        items: [
-        {
-            t: 'The 7-day experiment cycle — visual guide',
-            by: 'Diagram + walkthrough'
-        },
-        {
-            t: 'Getting started — audio guide',
-            by: 'Radiant Iris · Audio'
-        },
-        {
-            t: 'Ritual design template',
-            by: 'Google Doc'
-        },
-        {
-            t: 'Reflection & share-out template',
-            by: 'Google Doc'
-        },
-        {
-            t: 'Curated video examples',
-            by: 'By track — Art · Technology · Community'
-        }
-        ]
-    },
-    {
-        title: 'About the Project',
-        count: 'Fuji Sanctuary, Seven Stations, background & inspiration',
+        title: 'Learn More',
+        count: 'Background and inspiration behind Collaboratorium',
         icon: 'ti-sparkles',
         color: 'pink',
         items: [
+        {
+            t: 'Orientation recording',
+            by: 'Watch the recorded session anytime',
+            kind: 'video',
+            videoId: 'JKbvcEvY2kI'
+        },
         {
             t: 'Fuji Sanctuary introduction',
             by: 'Byakko Shinko Kai',
@@ -1652,7 +1565,15 @@
         {
             t: 'The Seven Stations',
             by: 'The mythic structure behind the journey'
-        },
+        }
+        ]
+    },
+    {
+        title: 'Creative Inspiration',
+        count: 'Optional — explore if you have time',
+        icon: 'ti-bulb',
+        color: 'green',
+        items: [
         {
             t: 'Dragon Dreaming',
             by: 'Process design method rooted in Aboriginal wisdom traditions'
@@ -1664,6 +1585,10 @@
         {
             t: 'Japanese mythology',
             by: 'Symbols, spirits, and stories woven into our rituals'
+        },
+        {
+            t: 'Curated video examples',
+            by: 'By track — Art · Technology · Community'
         }
         ]
     }
@@ -1840,40 +1765,10 @@
         document.getElementById('start-progress-label').textContent = p.done + ' of ' + p.total + ' complete';
     }
 
-    var currentWeek = getCalendarWeekIndex();
-
-    function renderWeekSubnav() {
-        var wrap = document.getElementById('week-subnav');
-        wrap.innerHTML = '';
-        var calIdx = getCalendarWeekIndex();
-        WEEKS.forEach(function(w, i) {
-            var el = document.createElement('span');
-            el.className = 'snav' + (i === currentWeek ? ' active' : '');
-            el.textContent = w.short + ' · ' + fmtRange(w) + (i === calIdx ? ' • Today' : '');
-            el.addEventListener('click', function() {
-                currentWeek = i;
-                renderWeekSubnav();
-                renderWeek();
-            });
-            wrap.appendChild(el);
-        });
-    }
-
-    function renderCalendarBanner() {
-        var calIdx = getCalendarWeekIndex();
-        var w = WEEKS[calIdx];
-        var el = document.getElementById('calendar-banner');
-        el.innerHTML =
-        '<div class="live-icon"><i class="ti ti-calendar-event"></i></div>' +
-        '<div><div class="live-title">Right now: ' + w.label + '</div>' +
-        '<div class="live-meta">' + fmtRange(w) + '</div></div>';
-    }
-
     function renderWeek() {
         var listEl = document.getElementById('week-list');
         var labelEl = document.getElementById('week-progress-label');
-        document.getElementById('week-card-title').textContent = WEEKS[currentWeek].label;
-        var items = WEEKS[currentWeek].items;
+        var items = WEEKS[getCalendarWeekIndex()].items;
         renderChecklist(listEl, items, null);
         var p = progressOf(items);
         labelEl.textContent = p.done + ' of ' + p.total + ' complete';
@@ -1881,9 +1776,7 @@
 
     function renderAll() {
         renderStart();
-        renderWeekSubnav();
         renderWeek();
-        renderCalendarBanner();
     }
 
     /* ---------- render: resources accordion ---------- */
@@ -2014,7 +1907,22 @@
             d.setDate(d.getDate() + 1);
         }
     }
+    /* Once the real Google Calendar embed link is available, paste it here —
+       e.g. 'https://calendar.google.com/calendar/embed?src=...&ctz=...' —
+       and openFullCalendar() will automatically show the live embed instead
+       of the quick-reference view built below. */
+    var GCAL_EMBED_URL = '';
+
     function openFullCalendar() {
+        var box = document.getElementById('modal-box');
+        if (GCAL_EMBED_URL) {
+            box.classList.add('light');
+            box.classList.add('wide');
+            document.getElementById('modal-content').innerHTML =
+            '<div class="map-wrap" style="padding:18px;"><iframe src="' + GCAL_EMBED_URL + '" style="width:100%;height:600px;border:0;border-radius:8px;" frameborder="0" scrolling="no"></iframe></div>';
+            document.getElementById('modal-bg').classList.add('open');
+            return;
+        }
         var COL = {
             orientation: '#B98B4E',
             cycle1: 'var(--blue)',
