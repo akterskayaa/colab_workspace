@@ -1165,13 +1165,13 @@
             <div class="gathering-card">
                 <div class="gathering-label">Next gathering</div>
                 <div class="gathering-title">Creative Sprint Kickoff</div>
-                <div class="gathering-meta">Wednesday, July 22 · 10:00 AM (your local time)</div>
+                <div class="gathering-meta">Wednesday, July 22 · 10:00 AM Pacific Time (PDT)</div>
                 <div class="gathering-actions">
                     <button class="gbtn primary" onclick="toast('Opening Zoom — Creative Sprint Kickoff…')">
                         <i class="ti ti-video" style="margin-right:5px;"></i>
                         Join on Zoom
                     </button>
-                    <button class="gbtn secondary" onclick="addToCalendar('Creative Sprint Kickoff','2026-07-22T10:00:00','2026-07-22T11:00:00','Collaboratorium kickoff call.')">
+                    <button class="gbtn secondary" onclick="addToCalendar('Creative Sprint Kickoff','2026-07-22T17:00:00Z','2026-07-22T18:00:00Z','Collaboratorium kickoff call.')">
                         <i class="ti ti-calendar-plus" style="margin-right:5px;"></i>
                         Add to Calendar
                     </button>
@@ -1500,8 +1500,8 @@
             zoomLabel: 'Opening Zoom — Collective Playtest…',
             ical: {
                 title: 'Collective Playtest',
-                start: '2026-07-28T15:00:00',
-                end: '2026-07-28T16:30:00',
+                start: '2026-07-28T22:00:00Z',
+                end: '2026-07-28T23:30:00Z',
                 details: 'Collaboratorium collective playtest.'
             }
         },
@@ -1512,8 +1512,8 @@
             zoomLabel: 'Opening Zoom — Final Showcase…',
             ical: {
                 title: 'Collaboratorium Final Showcase',
-                start: '2026-08-05T15:00:00',
-                end: '2026-08-05T17:00:00',
+                start: '2026-08-05T22:00:00Z',
+                end: '2026-08-06T00:00:00Z',
                 details: 'Final showcase and celebration.'
             }
         },
@@ -1911,7 +1911,7 @@
        e.g. 'https://calendar.google.com/calendar/embed?src=...&ctz=...' —
        and openFullCalendar() will automatically show the live embed instead
        of the quick-reference view built below. */
-    var GCAL_EMBED_URL = '';
+    var GCAL_EMBED_URL = 'https://calendar.google.com/calendar/embed?src=aabde870c3b961669c4694acef32b67cbf1db267427271ade66ee196e6dc3b6c%40group.calendar.google.com&ctz=Europe%2FMoscow';
 
     function openFullCalendar() {
         var box = document.getElementById('modal-box');
@@ -1919,7 +1919,10 @@
             box.classList.add('light');
             box.classList.add('wide');
             document.getElementById('modal-content').innerHTML =
-            '<div class="map-wrap" style="padding:18px;"><iframe src="' + GCAL_EMBED_URL + '" style="width:100%;height:600px;border:0;border-radius:8px;" frameborder="0" scrolling="no"></iframe></div>';
+            '<div class="map-wrap" style="padding:18px;">' +
+            '<iframe src="' + GCAL_EMBED_URL + '" style="width:100%;height:600px;border:0;border-radius:8px;" frameborder="0" scrolling="no"></iframe>' +
+            '<div class="map-caption">Times shown are in Moscow time (GMT+3) for everyone, regardless of where you\'re viewing from. For your own local time, use the "Add to Calendar" buttons on individual events instead.</div>' +
+            '</div>';
             document.getElementById('modal-bg').classList.add('open');
             return;
         }
@@ -2003,8 +2006,11 @@
     });
 
     /* ---------- add to calendar (Google Calendar template link) ---------- */
-    function toGCalStamp(iso) {
-        return iso.replace(/[-:]/g, '').replace(/\.\d+/, '') + 'Z';
+    function toGCalStamp(isoUtc) {
+        /* Expects an ISO string that is ALREADY in UTC and ends in Z
+             (e.g. '2026-07-22T17:00:00Z'). We only strip punctuation here —
+             we never invent a timezone by appending Z to a wall-clock time. */
+        return isoUtc.replace(/[-:]/g, '');
     }
     function addToCalendar(title, startIso, endIso, details) {
         try {
